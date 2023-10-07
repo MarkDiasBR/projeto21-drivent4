@@ -10,7 +10,6 @@ async function getBooking(userId: number) {
 }
 
 async function createBooking(userId: number, roomId: number) {
-
     const ticket = await ticketsService.getTicketByUserId(userId);
     //MAYBE NOT NEEDED: if (!ticket) throw notFoundError();
 
@@ -42,7 +41,31 @@ async function createBooking(userId: number, roomId: number) {
     return { bookingId: booking.id }
 }
 
+async function updateBooking(userId: number, roomId: number) {
+
+    // - A troca pode ser efetuada para usuários que possuem reservas.
+    const oldBooking = await bookingRepository.findBookingByUserId(userId);
+    // - `userId` sem reserva ⇒ deve retornar status code `403 (Forbidden)`.
+    if (!oldBooking) throw forbiddenError();
+
+    // - A troca pode ser efetuada apenas para quartos livres.
+    const room = await roomRepository.findRoom(roomId);
+    // - `roomId` não existente ⇒ deve retornar status code `404 (Not Found)`.
+    if (!room) throw notFoundError();
+
+    const roomCapacity = room.capacity;
+    const bookings = await bookingRepository.findBookingsByRoomId(roomId);
+    const roomVacancy = roomCapacity - bookings.length;
+    // - `roomId` sem vaga no novo quarto ⇒ deve retornar status code `403 (Forbidden)`.
+    if (roomVacancy === 0) throw forbiddenError();
+
+    const booking = await bookingRepository.updateBookingById(userId, roomId, oldBooking.id);
+    // Sucesso: Deve retornar status code 200 (Ok) com bookingId.
+    // Deve retornar status code 200 (Ok) com bookingId. formato {"bookingId": Number}
+    return { bookingId: booking.id };
+}
+
 export const bookingsService = {
-    getBooking, createBooking
+    getBooking, createBooking, updateBooking
 };
   

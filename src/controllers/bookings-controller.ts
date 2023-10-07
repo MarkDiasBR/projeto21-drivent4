@@ -12,8 +12,16 @@ export async function getBooking(req: AuthenticatedRequest, res: Response) {
 export async function createBooking(req: AuthenticatedRequest, res: Response) {
     const { userId, body: { roomId } } = req;
 
-    
     const booking = await bookingsService.createBooking(userId, roomId);
+
+    // Deve retornar status code 200 (Ok) com bookingId. formato {"bookingId": Number}
+    return res.status(httpStatus.OK).send(booking);
+}
+
+export async function updateBooking(req: AuthenticatedRequest, res: Response) {
+    const { userId, body: { roomId } } = req;
+
+    const booking = await bookingsService.updateBooking(userId, roomId);
 
     // Deve retornar status code 200 (Ok) com bookingId. formato {"bookingId": Number}
     return res.status(httpStatus.OK).send(booking);
