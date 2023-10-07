@@ -35,6 +35,10 @@ export type InputTicketBody = {
   ticketTypeId: number;
 };
 
+export type InputBooking = {
+  roomId: number;
+}
+
 export type CardPaymentParams = {
   issuer: string;
   number: string;
