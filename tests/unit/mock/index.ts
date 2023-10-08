@@ -1,3 +1,3 @@
-import * as mockBookings from "./bookings-factory";
+import * as mockBookings from './bookings-factory';
 
 export { mockBookings };

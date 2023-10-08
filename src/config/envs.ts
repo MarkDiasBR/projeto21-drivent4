@@ -3,7 +3,7 @@ import dotenvExpand from 'dotenv-expand';
 
 export function loadEnv() {
   const env = process.env.NODE_ENV;
-  
+
   let path;
 
   switch (env) {
@@ -17,7 +17,7 @@ export function loadEnv() {
       path = '.env';
       break;
   }
-  
+
   const currentEnvs = dotenv.config({ path });
   dotenvExpand.expand(currentEnvs);
 }

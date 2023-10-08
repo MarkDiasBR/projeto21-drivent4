@@ -37,7 +37,7 @@ export type InputTicketBody = {
 
 export type InputBooking = {
   roomId: number;
-}
+};
 
 export type CardPaymentParams = {
   issuer: string;
@@ -61,6 +61,6 @@ export type BookingWithRoom = {
   createdAt: Date;
   updatedAt: Date;
   Room: Room;
-}
+};
 
-export type BookingIdWithRoom = Pick<BookingWithRoom, "id" | "Room">;
+export type BookingIdWithRoom = Pick<BookingWithRoom, 'id' | 'Room'>;

@@ -14,7 +14,7 @@ export async function authenticateToken(req: AuthenticatedRequest, res: Response
 
   const session = await authenticationRepository.findSession(token);
   if (!session) throw unauthorizedError();
- 
+
   req.userId = userId;
   next();
 }

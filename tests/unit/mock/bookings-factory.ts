@@ -1,6 +1,6 @@
-import { faker } from "@faker-js/faker";
-import { BookingWithRoom } from "@/protocols";
-import { Ticket, TicketType, TicketStatus, Room, Booking } from "@prisma/client";
+import { faker } from '@faker-js/faker';
+import { Ticket, TicketType } from '@prisma/client';
+import { BookingWithRoom } from '@/protocols';
 
 export function bookingWithRoom(): BookingWithRoom {
   return {
@@ -15,9 +15,9 @@ export function bookingWithRoom(): BookingWithRoom {
       capacity: faker.datatype.number({ min: 1, max: 3 }),
       hotelId: faker.datatype.number({ min: 1, max: 999 }),
       createdAt: faker.date.past(),
-      updatedAt: faker.date.past()
-    }
-  }
+      updatedAt: faker.date.past(),
+    },
+  };
 }
 
 export function booking() {
@@ -27,15 +27,15 @@ export function booking() {
     roomId: faker.datatype.number({ min: 1, max: 9999 }),
     createdAt: faker.date.recent(),
     updatedAt: faker.date.recent(),
-  }
+  };
 }
 
-export function ticket(): (Ticket & { TicketType: TicketType }) {
+export function ticket(): Ticket & { TicketType: TicketType } {
   return {
     id: faker.datatype.number({ min: 1, max: 9999 }),
     ticketTypeId: faker.datatype.number({ min: 1, max: 9999 }),
     enrollmentId: faker.datatype.number({ min: 1, max: 9999 }),
-    status: "PAID",
+    status: 'PAID',
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     TicketType: {
@@ -46,16 +46,16 @@ export function ticket(): (Ticket & { TicketType: TicketType }) {
       includesHotel: true,
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
-    }
-  }
+    },
+  };
 }
 
-export function remoteTicket(): (Ticket & { TicketType: TicketType }) {
+export function remoteTicket(): Ticket & { TicketType: TicketType } {
   return {
     id: faker.datatype.number({ min: 1, max: 9999 }),
     ticketTypeId: faker.datatype.number({ min: 1, max: 9999 }),
     enrollmentId: faker.datatype.number({ min: 1, max: 9999 }),
-    status: "PAID",
+    status: 'PAID',
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     TicketType: {
@@ -66,16 +66,16 @@ export function remoteTicket(): (Ticket & { TicketType: TicketType }) {
       includesHotel: false,
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
-    }
-  }
+    },
+  };
 }
 
-export function noHotelTicket(): (Ticket & { TicketType: TicketType }) {
+export function noHotelTicket(): Ticket & { TicketType: TicketType } {
   return {
     id: faker.datatype.number({ min: 1, max: 9999 }),
     ticketTypeId: faker.datatype.number({ min: 1, max: 9999 }),
     enrollmentId: faker.datatype.number({ min: 1, max: 9999 }),
-    status: "PAID",
+    status: 'PAID',
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     TicketType: {
@@ -86,16 +86,16 @@ export function noHotelTicket(): (Ticket & { TicketType: TicketType }) {
       includesHotel: false,
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
-    }
-  }
+    },
+  };
 }
 
-export function unpaidTicket(): (Ticket & { TicketType: TicketType }) {
+export function unpaidTicket(): Ticket & { TicketType: TicketType } {
   return {
     id: faker.datatype.number({ min: 1, max: 9999 }),
     ticketTypeId: faker.datatype.number({ min: 1, max: 9999 }),
     enrollmentId: faker.datatype.number({ min: 1, max: 9999 }),
-    status: "RESERVED",
+    status: 'RESERVED',
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     TicketType: {
@@ -106,8 +106,8 @@ export function unpaidTicket(): (Ticket & { TicketType: TicketType }) {
       includesHotel: true,
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
-    }
-  }
+    },
+  };
 }
 
 export function room() {
@@ -117,8 +117,8 @@ export function room() {
     capacity: faker.datatype.number({ min: 1, max: 3 }),
     hotelId: faker.datatype.number({ min: 1, max: 999 }),
     createdAt: faker.date.past(),
-    updatedAt: faker.date.past()
-  }
+    updatedAt: faker.date.past(),
+  };
 }
 
 export function userId(): number {
