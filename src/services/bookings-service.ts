@@ -3,7 +3,7 @@ import { bookingRepository, roomRepository, ticketsRepository } from '@/reposito
 import { ticketsService } from './tickets-service';
 
 async function getBooking(userId: number) {
-    const booking = await bookingRepository.findBookingByUserId(userId);
+    const booking = await bookingRepository.findBookingWithRoomByUserId(userId);
     if (!booking) throw notFoundError();
 
     return booking;
