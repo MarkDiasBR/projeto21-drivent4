@@ -1,4 +1,5 @@
 import { prisma } from '@/config';
+import { Room } from '@prisma/client';
 
 async function findBookingByUserId(userId: number) {
     return prisma.booking.findFirst({
@@ -6,10 +7,21 @@ async function findBookingByUserId(userId: number) {
     });
 }
 
-async function findBookingWithRoomByUserId(userId: number) {
+type BookingWithUser = {
+    id: number;
+    userId: number;
+    roomId: number;
+    createdAt: Date;
+    updatedAt: Date;
+    Room: Room;
+}
+
+async function findBookingWithRoomByUserId(userId: number): Promise<BookingWithUser> {
     return prisma.booking.findFirst({
         where: { userId },
-        include: Room
+        include: { 
+            Room: true
+        }
     });
 }
 

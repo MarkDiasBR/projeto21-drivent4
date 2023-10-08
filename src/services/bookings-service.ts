@@ -5,8 +5,9 @@ import { ticketsService } from './tickets-service';
 async function getBooking(userId: number) {
     const booking = await bookingRepository.findBookingWithRoomByUserId(userId);
     if (!booking) throw notFoundError();
-
-    return booking;
+    
+    const {id, Room} = booking;
+    return {id, Room};
 }
 
 async function createBooking(userId: number, roomId: number) {
@@ -35,10 +36,9 @@ async function createBooking(userId: number, roomId: number) {
     // - `roomId` sem vaga ⇒ deve retornar status code `403 (Forbidden)`.
     if (roomVacancy === 0) throw forbiddenError();
     
-    const {id, Room} = await bookingRepository.createBooking(userId, roomId);
-    const booking = {id, Room};
-     // Deve retornar status code 200 (Ok) com bookingId.
-    return booking;
+    const booking = await bookingRepository.createBooking(userId, roomId);
+    // Deve retornar status code 200 (Ok) com bookingId.
+    return { bookingId: booking.id };
 }
 
 async function updateBooking(userId: number, roomId: number) {
