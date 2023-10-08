@@ -35,10 +35,10 @@ async function createBooking(userId: number, roomId: number) {
     // - `roomId` sem vaga ⇒ deve retornar status code `403 (Forbidden)`.
     if (roomVacancy === 0) throw forbiddenError();
     
-    const booking = await bookingRepository.createBooking(userId, roomId);
-
-     // Deve retornar status code 200 (Ok) com bookingId. formato {"bookingId": Number}
-    return { bookingId: booking.id }
+    const {id, Room} = await bookingRepository.createBooking(userId, roomId);
+    const booking = {id, Room};
+     // Deve retornar status code 200 (Ok) com bookingId.
+    return booking;
 }
 
 async function updateBooking(userId: number, roomId: number) {
