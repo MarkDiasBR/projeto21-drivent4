@@ -25,7 +25,7 @@ async function createBooking(userId: number, roomId: number) {
     // apenas usuários com ingresso pago podem fazer reservas
     // Fora da regra de negócio ⇒ deve retornar status code 403 (Forbidden). 
     if (ticket.status !== "PAID") throw forbiddenError();
-    
+
     const room = await roomRepository.findRoom(roomId);
     // - `roomId` não existente ⇒ deve retornar status code `404 (Not Found)`.
     if (!room) throw notFoundError();
@@ -42,7 +42,6 @@ async function createBooking(userId: number, roomId: number) {
 }
 
 async function updateBooking(userId: number, roomId: number) {
-
     // - A troca pode ser efetuada para usuários que possuem reservas.
     const oldBooking = await bookingRepository.findBookingByUserId(userId);
     // - `userId` sem reserva ⇒ deve retornar status code `403 (Forbidden)`.

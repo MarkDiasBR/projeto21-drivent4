@@ -1,27 +1,18 @@
 import { prisma } from '@/config';
-import { Room } from '@prisma/client';
+import { BookingWithRoom } from '@/protocols';
 
-async function findBookingByUserId(userId: number) {
-    return prisma.booking.findFirst({
-        where: { userId }
-    });
-}
-
-type BookingWithUser = {
-    id: number;
-    userId: number;
-    roomId: number;
-    createdAt: Date;
-    updatedAt: Date;
-    Room: Room;
-}
-
-async function findBookingWithRoomByUserId(userId: number): Promise<BookingWithUser> {
+async function findBookingWithRoomByUserId(userId: number): Promise<BookingWithRoom> {
     return prisma.booking.findFirst({
         where: { userId },
         include: { 
             Room: true
         }
+    });
+}
+
+async function findBookingByUserId(userId: number) {
+    return prisma.booking.findFirst({
+        where: { userId }
     });
 }
 
